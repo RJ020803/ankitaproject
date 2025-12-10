@@ -1,0 +1,70 @@
+﻿{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Encrypt Image</h5>
+          <form action="/encrypt" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label class="form-label">Choose image</label>
+              <input class="form-control" type="file" name="image" accept="image/*" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Key option</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="key_option" id="opt_gen" value="generate" checked>
+                <label class="form-check-label" for="opt_gen">Generate a secure key</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="key_option" id="opt_prov" value="provide">
+                <label class="form-check-label" for="opt_prov">Provide your own key</label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Key (if providing)</label>
+              <input class="form-control" type="text" name="key" placeholder="Base64 key string">
+              <div class="form-text">If you choose to provide the key, use the same key to decrypt later.</div>
+            </div>
+
+            <button class="btn btn-primary">Encrypt and Show Key</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Decrypt Image</h5>
+          <form action="/decrypt" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label class="form-label">Choose encrypted file</label>
+              <input class="form-control" type="file" name="enc_file" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Encryption key</label>
+              <input class="form-control" type="text" name="dkey" placeholder="Base64 key string" required>
+            </div>
+
+            <button class="btn btn-success">Decrypt and Download</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Notes</h6>
+          <ul>
+            <li>Do not lose the key — without it decryption is impossible.</li>
+            <li>Keys are shown as Base64 strings. Keep them safe.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

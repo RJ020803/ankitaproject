@@ -1,0 +1,28 @@
+﻿{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card shadow-sm">
+    <div class="card-body">
+      {% if action == 'encrypt' %}
+        <h5 class="card-title">Encryption Successful</h5>
+        <p class="card-text">Download your encrypted file and save the key below to decrypt later.</p>
+
+        <div class="mb-3">
+          <label class="form-label">Encryption Key</label>
+          <pre id="keybox" class="p-3 bg-light border rounded">{{ key }}</pre>
+          <button class="btn btn-outline-secondary btn-sm" onclick="copyToClipboard('keybox')">Copy Key</button>
+        </div>
+
+        <div class="mb-3">
+          <a class="btn btn-primary" href="/download_encrypted/{{ filedata }}/{{ filename }}">Download Encrypted File</a>
+        </div>
+
+        <div class="mt-3 text-muted small">Keep the key safe; anyone with it can decrypt the file.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <a href="/" class="btn btn-link">Back to Home</a>
+  </div>
+{% endblock %}
